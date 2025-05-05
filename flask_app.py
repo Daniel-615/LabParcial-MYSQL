@@ -5,12 +5,18 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from core.labA.TriggersOracle import TriggersOracle
 from core.configuracion.configuracion import Configuracion
+import time
+import socket
+import os
 class Main:
     def __init__(self):
         self.app = Flask(__name__)
         self.conexion = ConexionDB()
 
         try:
+            wait_for_db("mysql_mexico", 3306)
+            wait_for_db("mysql_salvador", 3306)
+            wait_for_db("oracle_guatemala", 1521)
             uri_mexico = self.conexion.connect_mysql_mexico()
             uri_elsalvador = self.conexion.connect_mysql_elsalvador()
             uri_oracle = self.conexion.connect_oracle()
@@ -48,3 +54,14 @@ class Main:
 
     def getApp(self):
         return self.app
+
+
+def wait_for_db(host, port, timeout=30):
+    start = time.time()
+    while time.time() - start < timeout:
+        try:
+            socket.create_connection((host, port))
+            return True
+        except OSError:
+            time.sleep(1)
+    raise RuntimeError(f"No se pudo conectar a {host}:{port} en {timeout} segundos")

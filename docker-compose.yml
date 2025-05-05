@@ -1,0 +1,50 @@
+services:
+  flaskapp:
+    build: .
+    container_name: lab_microservicio
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - mysql_sv
+      - mysql_mx
+      - oracle
+
+  mysql_sv:
+    image: mysql:8.0
+    container_name: mysql_salvador
+    ports:
+      - "${DB_PORT_MYSQL_SV}:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD_MYSQL_SV}
+      MYSQL_DATABASE: ${DB_NAME_MYSQL_SV}
+    volumes:
+      - mysql_sv_data:/var/lib/mysql
+
+  mysql_mx:
+    image: mysql:8.0
+    container_name: mysql_mexico
+    ports:
+      - "${DB_PORT_MYSQL_MX}:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD_MYSQL_MX}
+      MYSQL_DATABASE: ${DB_NAME_MYSQL_MX}
+    volumes:
+      - mysql_mx_data:/var/lib/mysql
+
+  oracle:
+    image: gvenzl/oracle-xe:21-slim
+    container_name: oracle_guatemala
+    ports:
+      - "${DB_PORT_ORACLE}:1521"
+    environment:
+      ORACLE_PASSWORD: ${DB_PASSWORD_ORACLE}
+      APP_USER: ${DB_USER_ORACLE}
+      APP_USER_PASSWORD: ${DB_PASSWORD_ORACLE}
+
+volumes:
+  mysql_sv_data:
+  mysql_mx_data:

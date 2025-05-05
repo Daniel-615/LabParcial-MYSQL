@@ -1,3 +1,3 @@
-from Main import Main
+from flask_app import Main
 
 app = Main().getApp()
