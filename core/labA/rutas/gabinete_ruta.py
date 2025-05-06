@@ -20,7 +20,7 @@ class Gabinete:
 
         @self.app.route(f'{base_path}', methods=['POST'], endpoint=f'create_gabinete_{self.sede}')
         def create_gabinete():
-            return self.app_initializer.getGabineteController(self.sede).create_gabinete(request.json)
+            return self.app_initializer.getGabineteController(self.sede).create_gabinete(self.sede,request.json)
 
         @self.app.route(f'{base_path}/<int:id>', methods=['PUT'], endpoint=f'update_gabinete_{self.sede}')
         def update_gabinete(id):
