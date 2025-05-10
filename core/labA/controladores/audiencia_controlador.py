@@ -17,7 +17,7 @@ class Audiencia:
         except (ValueError, TypeError):
             return None
 
-    def get_all_audiencias(self, sede='salvador'):
+    def get_all_audiencias(self, sede):
         try:
             AudienciaModel, _, _ = self._get_model(sede)
 
@@ -42,7 +42,7 @@ class Audiencia:
             print("Error en get_all_audiencias:", e)
             return jsonify({'message': 'Error interno del servidor'}), 500
 
-    def get_audiencia_by_id(self, id, sede='salvador'):
+    def get_audiencia_by_id(self, id, sede):
         try:
             AudienciaModel, _, _ = self._get_model(sede)
 
@@ -56,7 +56,7 @@ class Audiencia:
             print("Error en get_audiencia_by_id:", e)
             return jsonify({'message': 'Error interno del servidor'}), 500
 
-    def create_audiencia(self, json_data, sede='salvador'):
+    def create_audiencia(self, json_data, sede):
         try:
             AudienciaModel, AsuntoModel, AbogadoModel = self._get_model(sede)
 
@@ -102,7 +102,7 @@ class Audiencia:
             print("Error en create_audiencia:", e)
             return jsonify({'message': 'Error interno del servidor'}), 500
 
-    def update_audiencia(self, id, json_data, sede='salvador'):
+    def update_audiencia(self, id, json_data, sede):
         try:
             AudienciaModel, _, AbogadoModel = self._get_model(sede)
 

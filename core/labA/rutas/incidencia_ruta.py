@@ -20,8 +20,8 @@ class Incidencia:
 
         @self.app.route(f'{base_path}', methods=['POST'], endpoint=f'create_incidencia_{self.sede}')
         def create_incidencia():
-            return self.app_initializer.getIncidenciaController(self.sede).create_incidencia(request.json)
+            return self.app_initializer.getIncidenciaController(self.sede).create_incidencia(self.sede,request.json)
 
         @self.app.route(f'{base_path}/<int:id>', methods=['PUT'], endpoint=f'update_incidencia_{self.sede}')
         def update_incidencia(id):
-            return self.app_initializer.getIncidenciaController(self.sede).update_incidencia(id, request.json)
+            return self.app_initializer.getIncidenciaController(self.sede).update_incidencia(self.sede,id, request.json)

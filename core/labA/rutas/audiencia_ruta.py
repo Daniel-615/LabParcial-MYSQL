@@ -24,4 +24,4 @@ class Audiencia:
 
         @self.app.route(f'{base_path}/<int:id>', methods=['PUT'], endpoint=f'update_audiencia_{self.sede}')
         def update_audiencia(id):
-            return self.app_initializer.getAudienciaController(self.sede).update_audiencia(id, request.json)
+            return self.app_initializer.getAudienciaController(self.sede).update_audiencia(id, request.json,self.sede)

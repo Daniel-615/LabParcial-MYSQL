@@ -24,4 +24,4 @@ class Gabinete:
 
         @self.app.route(f'{base_path}/<int:id>', methods=['PUT'], endpoint=f'update_gabinete_{self.sede}')
         def update_gabinete(id):
-            return self.app_initializer.getGabineteController(self.sede).update_gabinete(id, request.json)
+            return self.app_initializer.getGabineteController(self.sede).update_gabinete(self.sede,id, request.json)
