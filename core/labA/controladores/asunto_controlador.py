@@ -89,7 +89,8 @@ class Asunto:
             cliente = ClienteModel.query.filter_by(id=cliente_id).first()
             if not cliente:
                 return jsonify({'message': 'Cliente no encontrado'}), 404
-
+            if AsuntoModel.query.filter_by(expediente=expediente).first():
+                return jsonify({'message': 'Ya existe un asunto con ese expediente'}), 409
             nuevo_asunto = AsuntoModel(
                 expediente=expediente,
                 cliente_id=cliente_id,
